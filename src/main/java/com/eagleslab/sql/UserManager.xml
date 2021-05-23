@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eagleslab.dao.UserManagerDao">
+
+    <insert id="insert" parameterType="UserManager">
+        insert into t_user_manager values (#{uname},#{usex},#{uage},#{province},#{email});
+    </insert>
+
+    <delete id="delete" parameterType="String" >
+        delete from t_user_manager where uname=#{uname}
+    </delete>
+
+    <update id="update" parameterType="UserManager" >
+        update t_user_manager set uage=#{uage},province=#{province},email=#{email} where uname=#{uname}
+    </update>
+
+    <select id="query" parameterType="String" resultType="UserManager">
+        select * from t_user_manager where uname=#{uname}
+    </select>
+
+    <select id="list" resultType="UserManager" parameterType="UserManager">
+        select * from t_user_manager where 1=1
+        <if test='email !=null and email!=""'>
+           and email like CONCAT("%", #{email}, "%")
+        </if>
+    </select>
+</mapper>
